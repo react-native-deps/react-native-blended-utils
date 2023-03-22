@@ -6,8 +6,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const MnemonicUtils = NativeModules.MnemonicUtils
-  ? NativeModules.MnemonicUtils
+const BlendedUtils = NativeModules.BlendedUtils
+  ? NativeModules.BlendedUtils
   : new Proxy(
       {},
       {
@@ -18,5 +18,5 @@ const MnemonicUtils = NativeModules.MnemonicUtils
     );
 
 export function generateSeed(mnemonic: string, passphrase?: string): Promise<number> {
-  return MnemonicUtils.generateSeed(mnemonic, passphrase);
+  return BlendedUtils.generateSeed(mnemonic, passphrase);
 }

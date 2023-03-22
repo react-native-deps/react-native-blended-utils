@@ -17,7 +17,6 @@ public class BlendedUtilsPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new BlendedUtilsModule(reactContext));
-        modules.add(new MnemonicUtils(reactContext));
         return modules;
     }
 

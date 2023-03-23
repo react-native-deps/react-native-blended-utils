@@ -14,9 +14,12 @@ import org.bouncycastle.crypto.digests.SHA512Digest;
 import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
 import org.bouncycastle.crypto.params.KeyParameter;
 
+import java.io.UnsupportedEncodingException;
+
 @ReactModule(name = BlendedUtilsModule.NAME)
 public class BlendedUtilsModule extends ReactContextBaseJavaModule {
     public static final String NAME = "BlendedUtils";
+    private static final String UTF_8 = "UTF-8";
 
     public BlendedUtilsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -37,14 +40,14 @@ public class BlendedUtilsModule extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public static void generateSeed(String mnemonic, String passphrase, Promise promise) {
+    public static void generateSeed(String mnemonic, String passphrase, Promise promise) throws UnsupportedEncodingException {
         if (isMnemonicEmpty(mnemonic)) {
             throw new IllegalArgumentException("Mnemonic is required to generate a seed");
         }
         passphrase = passphrase == null ? "" : passphrase;
         String salt = String.format("mnemonic%s", passphrase);
         PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA512Digest());
-        gen.init(mnemonic.getBytes("UTF-8"), salt.getBytes("UTF-8"), SEED_ITERATIONS);
+        gen.init(mnemonic.getBytes(UTF_8), salt.getBytes(UTF_8), SEED_ITERATIONS);
         promise.resolve(Base64.encodeToString(((KeyParameter) gen.generateDerivedParameters(SEED_KEY_SIZE)).getKey(), Base64.NO_WRAP));
     }
 

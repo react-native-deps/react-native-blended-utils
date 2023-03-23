@@ -17,6 +17,6 @@ const BlendedUtils = NativeModules.BlendedUtils
       }
     );
 
-export function generateSeed(mnemonic: string, passphrase?: string): Promise<number> {
+export function generateSeed(mnemonic: string, passphrase?: string): Promise<string> {
   return BlendedUtils.generateSeed(mnemonic, passphrase);
 }

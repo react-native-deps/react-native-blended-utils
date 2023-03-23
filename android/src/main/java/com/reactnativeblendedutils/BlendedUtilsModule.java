@@ -44,7 +44,7 @@ public class BlendedUtilsModule extends ReactContextBaseJavaModule {
         passphrase = passphrase == null ? "" : passphrase;
         String salt = String.format("mnemonic%s", passphrase);
         PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA512Digest());
-        gen.init(mnemonic.getBytes(UTF_8), salt.getBytes(UTF_8), SEED_ITERATIONS);
+        gen.init(mnemonic.getBytes("UTF-8"), salt.getBytes("UTF-8"), SEED_ITERATIONS);
         promise.resolve(Base64.encodeToString(((KeyParameter) gen.generateDerivedParameters(SEED_KEY_SIZE)).getKey(), Base64.NO_WRAP));
     }
 

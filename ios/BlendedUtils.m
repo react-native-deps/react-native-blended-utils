@@ -1,4 +1,5 @@
 #import <React/RCTBridgeModule.h>
+#import <CommonCrypto/CommonCryptoError.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
 

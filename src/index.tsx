@@ -21,10 +21,6 @@ export function generateSeed(mnemonic: string, passphrase?: string): Promise<str
   return BlendedUtils.generateSeed(mnemonic, passphrase);
 }
 
-export function keccak256(data: Uint8Array): Promise<string> {
-  return BlendedUtils.keccak256Native(data);
-}
-
-export function keccak256Test(data: string): Promise<string> {
-  return BlendedUtils.keccak256NativeFromUtf8String(data);
+export function keccak256(utf8String: string): Promise<string> {
+  return BlendedUtils.keccak256(utf8String);
 }

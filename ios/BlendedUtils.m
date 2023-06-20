@@ -18,18 +18,8 @@ static const int SEED_KEY_SIZE = 512;
   return mnemonic == nil || [mnemonic stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0;
 }
 
-- (NSString *)keccak256HashWithData:(id)data {
-    NSData *inputData;
-
-    if ([data isKindOfClass:[NSString class]]) {
-        NSString *inputString = (NSString *)data;
-        inputData = [inputString dataUsingEncoding:NSUTF8StringEncoding];
-    } else if ([data isKindOfClass:[NSData class]]) {
-        inputData = (NSData *)data;
-    } else {
-        // Invalid input type
-        return nil;
-    }
+- (NSString *)keccak256HashWithString:(NSString *)inputString {
+    NSData *inputData = [inputString dataUsingEncoding:NSUTF8StringEncoding];
 
     unsigned char hash[CC_SHA3_256_DIGEST_LENGTH];
 
@@ -73,12 +63,12 @@ RCT_EXPORT_METHOD(generateSeed:(NSString *)mnemonic passphrase:(NSString *)passp
     resolve([keyData base64EncodedStringWithOptions:0]);
 }
 
-RCT_EXPORT_METHOD(keccak256Native:(id)data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    NSString *hash = [self keccak256HashWithData:data];
+RCT_EXPORT_METHOD(keccak256Native:(NSString *)inputString resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    NSString *hash = [self keccak256HashWithString:inputString];
     if (hash) {
         resolve([@"0x" stringByAppendingString:hash]);
     } else {
-        NSString *errorMessage = @"Invalid input type. Expecting either a UTF-8 string or byte array.";
+        NSString *errorMessage = @"Invalid input type. Expecting a UTF-8 string.";
         reject(@"INVALID_INPUT", errorMessage, nil);
     }
 }

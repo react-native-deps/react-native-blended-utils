@@ -18,7 +18,7 @@ const BlendedUtils = NativeModules.BlendedUtils
     );
 
 export function generateSeed(mnemonic: string, passphrase?: string): Promise<string> {
-  return BlendedUtils.keccak256Native(mnemonic, passphrase);
+  return BlendedUtils.generateSeed(mnemonic, passphrase);
 }
 
 export function keccak256(data: Uint8Array): Promise<string> {

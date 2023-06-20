@@ -13,6 +13,8 @@ import android.util.Base64;
 import org.bouncycastle.crypto.digests.SHA512Digest;
 import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.digests.KeccakDigest;
+import org.bouncycastle.util.encoders.Hex;
 
 import java.io.UnsupportedEncodingException;
 
@@ -49,6 +51,25 @@ public class BlendedUtilsModule extends ReactContextBaseJavaModule {
         PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA512Digest());
         gen.init(mnemonic.getBytes(UTF_8), salt.getBytes(UTF_8), SEED_ITERATIONS);
         promise.resolve(Base64.encodeToString(((KeyParameter) gen.generateDerivedParameters(SEED_KEY_SIZE)).getKey(), Base64.NO_WRAP));
+    }
+
+    @ReactMethod
+    public static String keccak256Native(String utf8String) {
+        byte[] inputData = utf8String.getBytes();
+        KeccakDigest digest = new KeccakDigest(256);
+        digest.update(inputData, 0, inputData.length);
+        byte[] hash = new byte[digest.getDigestSize()];
+        digest.doFinal(hash, 0);
+        return "0x" + Hex.toHexString(hash);
+    }
+
+    @ReactMethod
+    public static String keccak256Native(byte[] data) {
+        KeccakDigest digest = new KeccakDigest(256);
+        digest.update(data, 0, data.length);
+        byte[] hash = new byte[digest.getDigestSize()];
+        digest.doFinal(hash, 0);
+        return "0x" + Hex.toHexString(hash);
     }
 
     public static native int nativeMultiply(int a, int b);

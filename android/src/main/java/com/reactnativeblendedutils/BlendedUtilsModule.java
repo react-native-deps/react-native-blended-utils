@@ -62,5 +62,15 @@ public class BlendedUtilsModule extends ReactContextBaseJavaModule {
         promise.resolve("0x" + Hex.toHexString(hash));
     }
 
+    @ReactMethod
+    public static void keccak256NativeFromUtf8String(String utf8String, Promise promise) {
+        byte[] data = utf8String.getBytes();
+        KeccakDigest digest = new KeccakDigest(256);
+        digest.update(data, 0, data.length);
+        byte[] hash = new byte[digest.getDigestSize()];
+        digest.doFinal(hash, 0);
+        promise.resolve("0x" + Hex.toHexString(hash));
+    }
+
     public static native int nativeMultiply(int a, int b);
 }

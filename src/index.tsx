@@ -17,10 +17,13 @@ const BlendedUtils = NativeModules.BlendedUtils
       }
     );
 
-export function generateSeed(mnemonic: string, passphrase?: string): Promise<string> {
+export function generateSeed(
+  mnemonic: string,
+  passphrase?: string
+): Promise<string> {
   return BlendedUtils.generateSeed(mnemonic, passphrase);
 }
 
 export function keccak256(utf8String: string): Promise<string> {
-  return BlendedUtils.keccak256(utf8String);
+  return BlendedUtils.keccak256Native(utf8String);
 }

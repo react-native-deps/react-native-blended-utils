@@ -23,7 +23,3 @@ export function generateSeed(
 ): Promise<string> {
   return BlendedUtils.generateSeed(mnemonic, passphrase);
 }
-
-export function keccak256(utf8String: string): Promise<string> {
-  return BlendedUtils.keccak256Native(utf8String);
-}

@@ -18,24 +18,6 @@ static const int SEED_KEY_SIZE = 512;
   return mnemonic == nil || [mnemonic stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0;
 }
 
-- (NSString *)keccak256HashWithString:(NSString *)inputString {
-    NSData *inputData = [inputString dataUsingEncoding:NSUTF8StringEncoding];
-
-    unsigned char hash[CC_SHA3_256_DIGEST_LENGTH];
-
-    CC_SHA3_CTX ctx;
-    CC_SHA3_Init(&ctx, CC_SHA3_256_DIGEST_LENGTH);
-    CC_SHA3_Update(&ctx, [inputData bytes], (CC_LONG)[inputData length]);
-    CC_SHA3_Final(hash, &ctx);
-
-    NSMutableString *hashHex = [NSMutableString string];
-    for (int i = 0; i < CC_SHA3_256_DIGEST_LENGTH; i++) {
-        [hashHex appendFormat:@"%02x", hash[i]];
-    }
-
-    return hashHex;
-}
-
 RCT_EXPORT_METHOD(generateSeed:(NSString *)mnemonic passphrase:(NSString *)passphrase resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     if ([BlendedUtils isMnemonicEmpty:mnemonic]) {
         NSString *errorMessage = @"Mnemonic is required to generate a seed";
@@ -61,16 +43,6 @@ RCT_EXPORT_METHOD(generateSeed:(NSString *)mnemonic passphrase:(NSString *)passp
     }
 
     resolve([keyData base64EncodedStringWithOptions:0]);
-}
-
-RCT_EXPORT_METHOD(keccak256Native:(NSString *)inputString resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    NSString *hash = [self keccak256HashWithString:inputString];
-    if (hash) {
-        resolve([@"0x" stringByAppendingString:hash]);
-    } else {
-        NSString *errorMessage = @"Invalid input type. Expecting a UTF-8 string.";
-        reject(@"INVALID_INPUT", errorMessage, nil);
-    }
 }
 
 @end

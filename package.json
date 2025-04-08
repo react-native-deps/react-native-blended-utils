@@ -1,5 +1,5 @@
 {
-  "name": "react-native-blended-utils",
+  "name": "@react-native-deps/react-native-blended-utils",
   "version": "0.1.3",
   "description": "native utilities",
   "main": "lib/commonjs/index",
@@ -36,16 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/blended-blockchain/react-native-blended-utils",
+  "repository": "https://github.com/react-native-deps/react-native-blended-utils",
   "author": "sjain <sjain@cognam.com> (https://github.com/s-jain-cognam)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/blended-blockchain/react-native-blended-utils/issues"
   },
   "homepage": "https://github.com/blended-blockchain/react-native-blended-utils#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@react-native-community/eslint-config": "^2.0.0",

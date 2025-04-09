@@ -1,10 +1,7 @@
 {
-  "name": "@react-native-deps/react-native-blended-utils",
+  "name": "react-native-blended-utils",
   "version": "0.1.3",
   "description": "native utilities",
-  "imports": {
-    "react-native-blended-utils": "@react-native-deps/react-native-blended-utils"
-  },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",

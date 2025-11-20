@@ -40,7 +40,7 @@ public class BlendedUtilsModule extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public static void generateSeed(String mnemonic, String passphrase, Promise promise) throws UnsupportedEncodingException {
+    public void generateSeed(String mnemonic, String passphrase, Promise promise) throws UnsupportedEncodingException {
         if (isMnemonicEmpty(mnemonic)) {
             throw new IllegalArgumentException("Mnemonic is required to generate a seed");
         }

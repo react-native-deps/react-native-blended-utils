@@ -1,6 +1,6 @@
 {
-  "name": "react-native-blended-utils",
-  "version": "0.1.4",
+  "name": "@cognam/react-native-blended-utils",
+  "version": "0.1.4-artifact",
   "description": "native utilities",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
